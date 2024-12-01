@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include<string.h>
+struct poly
+{
+	int c;
+	int e;
+};
+struct poly p1[100],p2[100],s[100],p[100];
+void main()
+{
+	int t1,t2,i,j,k;
+	printf("enter number of terms of 1st polynomial\n");
+	scanf("%d",&t1);
+	for(int i=0;i<t1;i++)
+	{
+		printf("enter coefficient");
+		scanf("%d",&p1[i].c);
+		printf("enter exponent");
+		scanf("%d",&p1[i].e);
+	}
+	printf("enter number of terms of 2nd polynomial\n");
+	scanf("%d",&t2);
+	for(int i=0;i<t2;i++)
+	{
+		printf("enter coefficient");
+		scanf("%d",&p2[i].c);
+		printf("enter exponent");
+		scanf("%d",&p2[i].e);
+	}
+	i=0;
+	j=0;
+	k=0;
+	//add
+	while(i<t1 && j<t2)
+	{
+		if(p1[i].e==p2[j].e)
+		{
+			s[k].c=p1[i].c+p2[j].c;
+			s[k].e=p1[i].e;
+			i++;
+			j++;
+		}
+		else if(p1[i].e>p2[j].e)
+		{
+			s[k]=p1[i];
+			i++;
+		}
+		else 
+		{
+			s[k]=p2[j];
+			j++;
+		}
+		k++;
+	}
+	while(i<t1)
+	{
+		s[k]=p1[i];
+		i++;
+		k++;
+	}
+	while(j<t2)
+	{
+		s[k]=p2[j];
+		j++;
+		k++;
+	}
+	printf("addition\n");
+	for(int i=0;i<k;i++)
+	{
+		if(i==k-1)
+		{
+			printf("%d",s[i].c);
+		}
+		else
+		{
+			printf("%dx^%d",s[i].c,s[i].e);
+			if(i!=k-1)
+			{
+				printf("+");
+			}
+		}
+	}
+	printf("\n");
+	i=k=j=0;
+	//multiply
+	for(i=0;i<t1;i++)
+	{
+		for(j=0;j<t2;j++)
+		{
+			int c=p1[i].c*p2[j].c;	
+			int e=p1[i].e+p2[j].e;
+			int f=0;
+			for(int l=0;l<k;l++)
+			{
+				if(p[l].e==e)
+				{
+					p[l].c+=c;
+					f=1;
+					break;
+				}
+			}
+			if(!f)
+			{
+				p[k].c=c;
+				p[k].e=e;
+				k++;
+			}
+		}
+	}
+	printf("multiplication\n");
+	for(i=0;i<k;i++)
+	{
+		printf("%dx^%d",p[i].c,p[i].e);
+		if(i!=(k)-1)
+		{
+			printf("+");
+		}
+	}
+	printf("\n");
+}
