@@ -1,0 +1,94 @@
+#include <stdio.h>
+void main()
+{
+	int n;
+	printf("enter the length of queue\n");
+	scanf("%d",&n);
+	int q[n],front=-1,rear=-1,item,ch;
+	while(1)
+	{
+		printf("enter 1 for enqueue\n");
+		printf("enter 2 for dequeue\n");
+		printf("enter 3 to display\n");
+		printf("enter 4 to exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		if(ch==1)
+		{
+			if((front == rear+1 )||(rear == n-1 && front==0))
+			{
+				printf("queue full\n");
+				}
+				else
+				{
+					printf("enter itam to be added\n");
+					scanf("%d",&item);
+					
+					if(front==-1)
+					{
+						front=0;
+					}
+					rear=(rear+1)%n;
+					q[rear]=item;
+				}
+			}
+			else if(ch==2)
+			{
+				if(front==-1)
+				{
+					printf("queue is empty\n");
+				}
+				else
+				{
+					printf("deleted element is %d\n",q[front]);
+					
+					if(front==rear)
+					{
+						front=-1;
+						rear =-1;
+					}
+					else
+					{
+						front=(front+1)%n;
+					}
+				}
+			}
+			else if(ch==3)
+			{
+				if(front==-1)
+				{
+					printf("queue is empty\n");
+				}
+				else
+				{
+					printf("queue contents\n");
+					if(front<=rear)
+					{
+						for(int i=front ;i<=rear;i++)
+						{
+							printf("%d\t",q[i]);
+						}
+					}
+					else
+					{
+						for(int i=front;i<n;i++)
+						{
+							printf("%d\t",q[i]);
+						}
+						for(int i=0;i<=rear;i++)
+						{
+							printf("%d\t",q[i]);
+						}
+					}
+				}
+			}
+			else if(ch==4)
+			{
+				break;
+			}
+			else
+			{
+				printf("invalid input");
+			}
+	}
+}
