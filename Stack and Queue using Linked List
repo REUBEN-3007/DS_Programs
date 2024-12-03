@@ -1,0 +1,216 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+//queue
+struct node
+{
+	int data;
+	struct node*next;
+};
+struct node*front=NULL;
+struct node*rear=NULL;
+
+//enqueue
+void enqueue(int x)
+{
+	struct node*temp=(struct node*)malloc(sizeof(struct node));
+	temp -> data = x;
+	temp -> next = NULL;
+	if(front == NULL && rear == NULL)
+	{
+		rear = front = temp;
+		return;
+	}
+	rear -> next = temp;
+	rear = temp;
+}
+
+//dequeue
+void dequeue()
+{
+	struct node*temp = front;
+	if(front == NULL)
+	{
+		printf("queue is empty\n");
+		return;
+	}
+	if(front == rear)
+	{
+		front = rear = NULL;
+		printf("dequeued element is %d\n",temp -> data);
+	}
+	else
+	{
+		front = front -> next;
+		printf("dequeued element is %d\n",temp -> data);
+	}
+}
+
+//printing queue
+void displayq()
+{
+	struct node*temp = front;
+	if(temp == NULL)
+	{
+		printf("queue is empty\n");
+		return;
+	}
+	printf("queue contents\n");
+	while(temp != NULL)
+	{
+		printf("%d\t",temp -> data);
+		temp=temp->next;
+	}
+	printf("\n");
+}
+
+
+//stack
+struct node1
+{
+	int info;
+	struct node1*link;
+}*top = NULL;
+
+
+//push
+void push(int info)
+{
+	struct node1*ptr = (struct node1*)malloc (sizeof(struct node1));
+	if (ptr==NULL)
+	{
+		printf("stack full\n");
+		return;
+	}
+	ptr -> info = info;
+	ptr -> link = top;
+	top = ptr;
+}
+
+//pop
+void pop()
+{
+	struct node1*ptr;
+	if(top == NULL)
+	{
+		printf("stack empty\n");
+		return;
+	}
+	ptr = top;
+	top = top -> link;
+	printf("popped element is %d\n",ptr -> info);
+}
+
+//printing stack
+void displayst()
+{
+	struct node1*temp = top;
+	if(top == NULL)
+	{
+		printf("stack empty\n");
+		return;
+	}
+	printf("stack elements\n");
+	while (temp!=NULL)
+	{
+		printf("%d\t",temp->info);
+		temp=temp->link;
+	}
+	printf("\n");
+}
+
+//main method
+void main()
+{
+	int info;
+	while(1)
+	{
+		int choice;
+		printf("enter 1 for stack\n");
+		printf("enter 2 for queue\n");
+		printf("enter 3 to exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&choice);
+		if (choice == 2)
+		{	
+			while(1)
+			{
+				int ch;
+				printf("enter 1 for enqueue\n");
+				printf("enter 2 for dequeue\n");
+				printf("enter 3 to display\n");
+				printf("enter 4 to exit\n");
+				printf("enter your choice\n");
+				scanf("%d",&ch);
+				if(ch==1)
+				{
+					int item;
+					printf("enter the item to be added\n");
+					scanf("%d",&item);
+					enqueue(item);
+				}
+				else if(ch==2)
+				{
+					dequeue();
+				}
+				else if(ch==3)
+				{
+					displayq();
+				}
+				else if (ch==4)
+				{
+					break;
+				}
+				else 
+				{
+					printf("invalid input\n");
+				}
+			}
+		}
+		else if (choice ==1)
+		{
+			while (1)
+			{
+				int ch;
+				printf("enter 1 for push\n");
+				printf("enter 2 for pop\n");
+				printf("enter 3 to display\n");
+				printf("enter 4 to exit\n");
+				printf("enter your choice\n");
+				scanf("%d",&ch);
+				if(ch==1)
+				{
+					int item;
+					printf("enter the item to be added\n");
+					scanf("%d",&item);
+					push(item);
+				}
+				else if(ch==2)
+				{
+					pop();
+				}
+				else if (ch==3)
+				{
+					displayst();
+				}
+				else if(ch==4)
+				{
+					break;
+				}
+				else
+				{
+					printf("invalid input\n");
+				}
+			}
+		}
+		else if(choice ==3)
+		{
+			break;
+		}
+		else 
+		{
+			printf("invalid input\n");
+		}
+	}
+}
