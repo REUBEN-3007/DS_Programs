@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct 	Node{
+	int data;
+	int priority;
+	struct Node* next;
+};
+struct Node* head= NULL;
+
+//enqueue
+void insert(int data,int priority)
+{
+	struct Node* newNode=(struct Node*)malloc(sizeof (struct Node));
+	newNode -> data = data;
+	newNode -> priority = priority;
+	newNode -> next = NULL;
+	if(head == NULL || head -> priority > priority)
+	{
+		newNode -> next = head;
+		head = newNode;
+	}
+	else
+	{
+		struct Node*temp = head;
+		while (temp -> next!= NULL && temp -> next -> priority <= priority)
+		{
+			temp = temp -> next;
+		}
+		newNode -> next = temp-> next;
+		temp -> next = newNode;
+	}
+}
+void delete()
+{
+	
+	if(head == NULL)
+	{
+		printf("\nqueue empty\n");
+		return;
+	}
+	struct Node* temp = head;
+	printf("deleted %d\n", temp -> data);
+	head = head -> next;
+	free(temp);
+}
+void display()
+{
+	if(head == NULL)
+	{
+		printf("\nqueue empty\n");
+		return;
+	}
+	struct Node* temp = head;
+	while(temp != NULL)
+	{
+		printf("data- %d   priority- %d\n",temp -> data , temp -> priority);
+		temp = temp -> next;		
+	}
+}
+void main()
+{
+	int data,priority,ch;
+	while(1)
+	{
+		int ch;
+		printf("enter 1 to insert \n");
+		printf("enter 2 to delete\n");
+		printf("enter 3 to display\n");
+		printf("enter 4 to exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		if(ch==1)
+		{
+			printf("enter the item to be added\n");
+			scanf("%d",&data);
+			printf("enter the priority\n");
+			scanf("%d",&priority);
+			insert(data,priority);
+		}
+		else if(ch==2)
+		{
+			delete();
+		}
+		else if(ch==3)
+		{
+			display();
+		}
+		else if (ch==4)
+		{
+			break;
+		}
+		else 
+		{
+			printf("invalid input\n");
+		}
+	}
+}
