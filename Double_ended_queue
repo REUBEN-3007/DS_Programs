@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct 	Node{
+	int data;
+	struct Node* prev;
+	struct Node* next;
+};
+struct Node* front= NULL;
+struct Node* rear=NULL;
+void insertfr(int value)
+{
+	struct Node* newNode=(struct Node*)malloc(sizeof (struct Node));
+	newNode -> data = value;
+	newNode -> prev = NULL;
+	newNode -> next = front;
+	if(front == NULL)
+	{
+		rear = newNode;
+	}
+	else
+	{
+		front -> prev = newNode;
+	}
+	front = newNode;
+}
+void insertre(int value)
+{
+	struct Node* newNode=(struct Node*)malloc(sizeof (struct Node));
+	newNode -> data = value;
+	newNode -> next = NULL;
+	newNode -> prev = rear;
+	if(rear == NULL)
+	{
+		front = newNode;
+	}
+	else
+	{
+		rear -> next = newNode;
+	}
+	rear = newNode;
+}
+void delfr()
+{
+	if(front == NULL)
+	{
+		printf("\nqueue empty\n");
+		return;
+	}
+	struct Node* temp = front;
+	front = front -> next;
+	if (front == NULL)
+	{
+		rear = NULL;
+	}
+	else
+	{
+		front -> prev = NULL;
+	}
+	printf("deleted %d\n",temp -> data);
+	free(temp);
+}
+void delre()
+{
+	if(rear == NULL)
+	{
+		printf("\nqueue empty\n");
+		return;
+	}
+	struct Node* temp = rear;
+	rear = rear -> prev;
+	if (rear == NULL)
+	{
+		front = NULL;
+	}
+	else
+	{
+		rear -> next = NULL;
+	}
+	printf("deleted %d\n",temp -> data);
+	free(temp);
+}
+void display()
+{
+	struct Node* temp = front;
+	if(front == NULL)
+	{
+		printf("\nqueue empty\n");
+		return;
+	}
+	printf("contents : ");
+	while(temp != NULL)
+	{
+		printf("%d\t",temp -> data);
+		temp = temp -> next;
+	}
+	printf("\n");
+}
+void main()
+{
+	int value,ch;
+	while(1)
+	{
+		int ch;
+		printf("enter 1 to insert from front \n");
+		printf("enter 2 to insert from rear\n");
+		printf("enter 3 to delete from front\n");
+		printf("enter 4 to delete from rear\n");
+		printf("enter 5 to display\n");
+		printf("enter 6 to exit\n");
+		printf("enter your choice\n");
+		scanf("%d",&ch);
+		if(ch==1)
+		{
+			printf("enter the item to be added\n");
+			scanf("%d",&value);
+			insertfr(value);
+		}
+		else if(ch==2)
+		{
+			printf("enter the item to be added\n");
+			scanf("%d",&value);
+			insertre(value);
+		}
+		else if(ch==3)
+		{
+			delfr();
+		}
+		else if (ch==4)
+		{
+			delre();
+		}
+		else if (ch==5)
+		{
+			display();
+		}
+		else if (ch==6)
+		{
+			exit(0);
+		}
+		else 
+		{
+			printf("invalid input\n");
+		}
+	}
+}
