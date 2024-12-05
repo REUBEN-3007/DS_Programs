@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+// level order
+void lvlord(int tree[],int n)
+{
+	for(int i=0;i<n;i++)
+	{
+		if(tree[i]==0)
+		{
+			continue;
+		}
+		printf("%d ",tree[i]);
+	}
+}
+
+//inorder
+
+void inord(int tree[],int index,int n)
+{
+	if (index>=n || tree[index]==0) return;
+	inord(tree,2*index+1,n);
+	printf("%d ",tree[index]);
+	inord(tree,2*index+2,n);
+}
+
+//pre order
+
+void prord(int tree[],int index,int n)
+{
+	if (index>=n || tree[index]==0) return;
+	printf("%d ",tree[index]);
+	prord(tree,2*index+1,n);
+	prord(tree,2*index+2,n);
+}
+
+//post order
+
+void posord(int tree[],int index,int n)
+{
+	if (index>=n || tree[index]==0) return;
+	posord(tree,2*index+1,n);
+	posord(tree,2*index+2,n);
+	printf("%d ",tree[index]);
+}
+int main()
+{
+	int n;
+	printf("enter the number of elements\n");
+	scanf("%d",&n);
+	int tree[n];
+	for(int i=0;i<n;i++)
+	{
+		printf("enter tree element%d\n",i+1);
+		scanf("%d",&tree[i]);
+	}
+	printf("\nlevel order traversal\n");
+	lvlord(tree,n);
+	printf("\ninorder traversal\n");
+	inord(tree,0,n);
+	printf("\npreorder traversal\n");
+	prord(tree,0,n);
+	printf("\npostorder traversal\n");
+	posord(tree,0,n);
+}
